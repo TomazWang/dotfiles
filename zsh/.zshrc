@@ -1,12 +1,58 @@
-# include Z, yo
-. ~/z.sh
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# ============= oh-my-zsh ===============
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/tomaz/.oh-my-zsh
 
+# ============= zplug ===================
+# 
+# zplug is a zsh package manager 
+# See https://github.com/zplug/zplug
+# 
+# Install zplug for the first time:
+# 
+# -- 1. export ZPLUG_HOME=/path/to/.zplug
+# -- 2. git clone https://github.com/zplug/zplug $ZPLUG_HOME
+#
+
+# Path to  zplug installation.
+export ZPLUG_HOME=~/.zplug
+
+# source zplug
+source $ZPLUG_HOME/init.zsh
+
+
+# include z and fz using zplug
+zplug "changyuheng/fz", defer:1
+
+
+# ============= z ======================
+# 
+# z is a fast jumping tool for zsh
+
+# include Z, yo
+. ~/.zshsup/z.sh
+
+
+
+# zsh-interactive-cd is a plugin for to use fzf with cd in zsh
+# source zsh-interactive-cd
+. ~/.zshsup/zsh-interactive-cd.zsh
+
+
+
+# ============== General Setting ==========
+#
+#
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# adb path
+PATH=${PATH}:/Users/tomaz/Library/Android/sdk/platform-tools/
+export PATH
+
+
+# ============= Look and feel ===============
+#
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -80,6 +126,12 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
+
+
+
+
+# ============ Aliases =====================
+#
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
