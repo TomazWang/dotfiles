@@ -23,7 +23,7 @@ source $ZPLUG_HOME/init.zsh
 
 # include z and fz using zplug
 zplug "changyuheng/fz", defer:1
-
+zplug "rupa/z", use:z.sh
 
 # ============= z ======================
 # 
@@ -101,7 +101,7 @@ ZSH_THEME="refined" # the "pure" theme
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git npm)
+plugins=(git npm zsh-syntax-highlighting)
 
 
 source $ZSH/oh-my-zsh.sh
@@ -140,7 +140,5 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias py=python3
-alias out120="py /Users/tomaz/dev/PythonMegaCourse/playground/Script.py"
-alias vi=vim
 
+source ~/.zshsup/aliases.zsh
