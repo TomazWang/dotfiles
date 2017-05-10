@@ -45,7 +45,6 @@ function cp_all_dotfiles(){
 	declare -a shell_sup_files=(
 			"shell_exports"
 			"shell_alias"
-			"shell_functions"
 			"shell_config"
 		)
 
@@ -58,17 +57,30 @@ function cp_all_dotfiles(){
 
 	unset shell_sup_files
 
-    # Custom shell files
-    if [ -d "$HOME/.shell/custom" ]; then
-        cp -R "$HOME/.shell/custom/." "$tmp_path/shell/custom/"
-        echo "[OK]... all files in .shell/custom"
+    # function files
+    if [ -d "$HOME/.fucntion" ]; then
+        cp -R "$HOME/.function/." "$tmp_path/function/"
+        echo "[OK]... all files in .function"
     else
-        echo "[SKIP]... .shell/custom/ not exist."
+        echo "[SKIP]... .function/ not exist."
     fi
+
+
+    # system config
+	if [ -d "$HOME/.sys" ]; then
+        cp -R "$HOME/.sys/." "$tmp_path/system/"
+        echo "[OK]... all files in .sys"
+    else
+        echo "[SKIP]... .sys/ not exist."
+    fi
+
 
 	# Vim files
     cp "$HOME/.vimrc" "$tmp_path/vim/vimrc"
     echo "[OK]... vimrc"
+
+
+    # TODO: git
 
 }
 
