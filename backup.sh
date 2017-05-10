@@ -101,18 +101,7 @@ fucntion do_auto_git(){
 
 function main(){
 
-	echo ">> Process begin"
-
-    # declare a tmp folder
-    tmp_path="$HOME/.dotfile_tmp"
-    
-    # Remember the dotfile folder path.
-    dotfile_path=$(pwd)
-    echo ""
-    echo ">>> Current dotfile folder is: $dotfile_path"
-
-
-    # Check arguments
+	# Check arguments
     is_auto_git=-1
 
     while [ "$1" != "" ];do
@@ -126,6 +115,16 @@ function main(){
 		esac
 		shift
 	done
+
+	echo ">> Process begin"
+
+    # declare a tmp folder
+    tmp_path="$HOME/.dotfile_tmp"
+    
+    # Remember the dotfile folder path.
+    dotfile_path=$(pwd)
+    echo ""
+    echo ">>> Current dotfile folder is: $dotfile_path"
 
 	# cd to HOME
 	cd $HOME
