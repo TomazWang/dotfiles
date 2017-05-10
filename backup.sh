@@ -18,7 +18,8 @@ function prepare_dirs(){
 		"$tmp_path/vim"
 		"$tmp_path/iterm"
 		"$tmp_path/git"
-        "$tmp_path/shell/custom"
+        "$tmp_path/function"
+        "$tmp_path/system"
 		)
 
 	for d in "${dirs_needed[@]}"; do
