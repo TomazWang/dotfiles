@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# List all files, long format, colorized, permissions in octal
+function all() {
+
+    # $3 permissions
+    # $6 user
+    # $7 date
+    # $8 time
+    # $5 size
+
+    while [ "$1" != "" ];do
+        case $1 in
+            -a | --all )    shift
+                            ll -a "$@" | awk '
+                                {
+                                    if($9 != "" && $9 != "." && $9 != "..")
+                                        printf("%5s %4s %6s %6s | %s\n", $6, $7, $8, $5, $9)
+                                }'
+                            return
+                            ;;
+        esac
+    done
+
+   ll "$@" | awk '
+        {
+            if($9 != "" && $9 != "." && $9 != "..")
+                printf("%4s %4s %6s %6s | %s\n", $6, $7, $8, $5, $9)
+        }'
+    }
+
+
+
+# ip address
+function myip(){
+    echo -n 'Public IP:'
+    dig +short myip.opendns.com @resolver1.opendns.com
+}
+
+function localip(){
+    echo -n 'Local IP:'
+    ipconfig getifaddr en0
+}
+
+function ip(){
+    myip
+    localip
+}
+
+# cd into whatever is the forefront Finder window.
+function cdf(){
+    cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
+}
+alias gotoFinder=cdf

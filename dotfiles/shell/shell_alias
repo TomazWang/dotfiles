@@ -1,0 +1,50 @@
+# ============ Aliases =====================
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+
+
+# reload zshrc
+alias reload='. ~/.zshrc'
+
+# command alias
+alias cls='clear'
+
+# Shortcuts
+alias o='open'
+alias oo='open .'
+alias v='vim'
+alias x+='chmod +x'
+alias py='python 3'
+
+# mv, rm, cp, ...
+alias mv='mv -v'
+alias rm='rm -i -v'
+alias cp='cp -v'
+
+
+# Dotfiles quick edit
+alias vimz='vim $HOME/.zshrc'
+alias vimzl='vim $HOME/.zsh.local'
+alias vimh='vim $HOME/.hyper.js'
+alias vimt='vim $HOME/.tmux.conf'
+alias vima='vim $HOME/.shell/.shell_alias'
+alias vimv='vim $HOME/.vimrc'
+
+
+
+# For adb
+alias adbc='adb connect'
+alias adbd='adb devices'
+
+
+# Work faster
+alias tapk='cd $HOME/Dev/turncloud-android/app/build/outputs/apk
+'
+alias taok='tapk' # typo
