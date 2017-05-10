@@ -4,6 +4,13 @@ function is_dir(){
 }
 
 
+function illegal_argument_err option(){
+	echo "illegal argument $1"
+	echo "Usage:"
+	echo "    --git: to auto commit"
+}
+
+
 function prepare_dirs(){
 	declare -a dirs_needed=(
 		"$tmp_path"
@@ -73,6 +80,24 @@ function cp_to_repo(){
     fi
 }
 
+fucntion do_auto_git(){
+	echo ""
+	echo ">>> Git Process"
+	# init git
+	if ! [ -d .git ]; then 
+	 	git init
+	 	echo "[OK]... init git"
+	fi
+
+	# auto add, auto commit
+	git add --all
+	echo "[OK]... add all files to index"
+
+    ts=$(date "+%Y%m%d_%H:%M:%S")
+  	git commit -m "auto sync dotfiles at ${ts}"
+  	echo "[OK]... auto commit"
+}
+
 
 function main(){
 
@@ -85,6 +110,22 @@ function main(){
     dotfile_path=$(pwd)
     echo ""
     echo ">>> Current dotfile folder is: $dotfile_path"
+
+
+    # Check arguments
+    is_auto_git=-1
+
+    while [ "$1" != "" ];do
+    	case $1 in
+
+    		--git )		$is_auto_git=true ;;
+
+			* ) 		illegal_argument_err $1
+						return ;;
+
+		esac
+		shift
+	done
 
 	# cd to HOME
 	cd $HOME
@@ -104,22 +145,11 @@ function main(){
 	# cd to repo
 	cd $dotfile_path
 
-	echo ""
-	echo ">>> Git Process"
-	# init git
-	if ! [ -d .git ]; then 
-	 	git init
-	 	echo "[OK]... init git"
+
+	if [ $is_auto_git ] ; then
+		do_auto_git
 	fi
-
-	# auto add, auto commit
-	git add --all
-	echo "[OK]... add all files to index"
-
-    ts=$(date "+%Y%m%d_%H:%M:%S")
-  	git commit -m "auto sync dotfiles at ${ts}"
-  	echo "[OK]... auto commit"
 }
 
 
-main
+main "$@"
