@@ -3,14 +3,19 @@
 
 ## what's in this repo
 
-I'm trying to push all my dotfiles on github to save and share my enviroment settings.
+This is a repo I back up all my environment settings.
 
 
-## Components
+## TODOs
 
-This is the index of the repo:
-- **zsh/**: Anything about zsh. (Plugins, aliases, etc)
-- **vim/**: Mainly `vimrc` file. All of my vim setting will be in here. 
+### tools
+- auto back tool
+- auto setup tool
 
-
-
+### components
+- shell related files
+- custom shell functions
+- vim related
+- git related
+- sublime settings
+- android studio settings
