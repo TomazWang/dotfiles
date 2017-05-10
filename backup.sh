@@ -102,7 +102,7 @@ fucntion do_auto_git(){
 function main(){
 
 	# Check arguments
-    is_auto_git=-1
+    is_auto_git=false
 
     while [ "$1" != "" ];do
     	case $1 in
