@@ -6,18 +6,18 @@ function is_dir(){
 
 function prepare_dirs(){
 	declare -a dirs_needed=(
-		"$HOME/.dotfiles"
-		"$HOME/.dotfiles/shell"
-		"$HOME/.dotfiles/vim"
-		"$HOME/.dotfiles/iterm"
-		"$HOME/.dotfiles/git"
-        "$HOME/.dotfiles/shell/custom"
+		"$tmp_path"
+		"$tmp_path/shell"
+		"$tmp_path/vim"
+		"$tmp_path/iterm"
+		"$tmp_path/git"
+        "$tmp_path/shell/custom"
 		)
 
 	for d in "${dirs_needed[@]}"; do
 		if ! is_dir "$d" ; then
 			mkdir $d
-			echo 'create directory: '${d}
+			echo '[OK]... create tmp dir: '${d}
 		fi
 	done
 
@@ -31,7 +31,7 @@ function cp_all_dotfiles(){
 
 
 	# Shell files 
-	cp $HOME/.zshrc $HOME/.dotfiles/shell/zshrc
+	cp $HOME/.zshrc $tmp_path/shell/zshrc
 	echo "[OK]... zshrc"
 
 	declare -a shell_sup_files=(
@@ -43,7 +43,7 @@ function cp_all_dotfiles(){
 
 	for f in "${shell_sup_files[@]}"; do
 		if [ -f "$HOME/.shell/.${f}" ]; then 
-			cp "$HOME/.shell/.${f}" $HOME/.dotfiles/shell/$f
+			cp "$HOME/.shell/.${f}" $tmp_path/shell/$f
 			echo "[OK]... ${f}"
 		fi
 	done
@@ -52,22 +52,22 @@ function cp_all_dotfiles(){
 
     # Custom shell files
     if [ -d "$HOME/.shell/custom" ]; then
-        cp -R "$HOME/.shell/custom/." "$HOME/.dotfiles/shell/custom/"
+        cp -R "$HOME/.shell/custom/." "$tmp_path/shell/custom/"
         echo "[OK]... all files in .shell/custom"
     else
         echo "[SKIP]... .shell/custom/ not exist."
     fi
 
 	# Vim files
-    cp "$HOME/.vimrc" "$HOME/.dotfiles/vim/"
+    cp "$HOME/.vimrc" "$tmp_path/vim/"
     echo "[OK]... vimrc"
 
 }
 
 
 function cp_to_repo(){
-    if [ -d "$HOME/.dotfiles" ]; then
-        mv -fi -v "$HOME/.dotfiles" "$dotfile_path/dotfiles"
+    if [ -d "$tmp_path" ]; then
+        mv -fi "$tmp_path" "$dotfile_path/dotfiles"
         echo "Move all files to $dotfile_path"
     fi
 }
@@ -75,32 +75,49 @@ function cp_to_repo(){
 
 function main(){
 
+	echo ">> Process begin"
+
+    # declare a tmp folder
+    tmp_path="$HOME/.dotfile_tmp"
+    
     # Remember the dotfile folder path.
     dotfile_path=$(pwd)
-    echo $dotfile_path
+    echo ""
+    echo ">>> Current dotfile folder is: $dotfile_path"
 
 	# cd to HOME
 	cd $HOME
 
 	# copy all file to a temparay folder
+	echo ""
+	echo ">>> Copy all files to temparay folder"
+
 	cp_all_dotfiles
 
+
 	# copy tmp filder to repo
+	echo ""
+	echo ">>> Move tmp folder to dotfile folder"
 	cp_to_repo
 	
 	# cd to repo
 	cd $dotfile_path
 
+	echo ""
+	echo ">>> Git Process"
 	# init git
 	if ! [ -d .git ]; then 
 	 	git init
+	 	echo "[OK]... init git"
 	fi
 
 	# auto add, auto commit
 	git add --all
+	echo "[OK]... add all files to index"
 
     ts=$(date "+%Y%m%d_%H:%M:%S")
   	git commit -m "auto sync dotfiles at ${ts}"
+  	echo "[OK]... auto commit"
 }
 
 
