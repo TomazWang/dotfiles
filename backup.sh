@@ -66,8 +66,9 @@ function cp_all_dotfiles(){
 
 
 function cp_to_repo(){
+
     if [ -d "$tmp_path" ]; then
-        mv -fi "$tmp_path" "$dotfile_path/dotfiles"
+        mv -f "$tmp_path" "$dotfile_path/dotfiles"
         echo "Move all files to $dotfile_path"
     fi
 }
