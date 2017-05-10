@@ -94,7 +94,7 @@ fucntion do_auto_git(){
 	echo "[OK]... add all files to index"
 
     ts=$(date "+%Y%m%d_%H:%M:%S")
-  	git commit -m "auto sync dotfiles at ${ts}"
+  	git commit -m "sync dotfiles at ${ts}"
   	echo "[OK]... auto commit"
 }
 
@@ -107,7 +107,7 @@ function main(){
     while [ "$1" != "" ];do
     	case $1 in
 
-    		--git )		$is_auto_git=true ;;
+    		--git )		is_auto_git=true ;;
 
 			* ) 		illegal_argument_err $1
 						return ;;
