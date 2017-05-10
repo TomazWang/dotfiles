@@ -145,7 +145,7 @@ function main(){
 	cd $dotfile_path
 
 
-	if [ $is_auto_git ] ; then
+	if $is_auto_git ; then
 		do_auto_git
 	fi
 }
