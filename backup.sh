@@ -59,7 +59,7 @@ function cp_all_dotfiles(){
     fi
 
 	# Vim files
-    cp "$HOME/.vimrc" "$tmp_path/vim/"
+    cp "$HOME/.vimrc" "$tmp_path/vim/vimrc"
     echo "[OK]... vimrc"
 
 }
