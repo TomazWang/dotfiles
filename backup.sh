@@ -4,7 +4,7 @@ function is_dir(){
 }
 
 
-function illegal_argument_err option(){
+function illegal_argument_err(){
 	echo "illegal argument $1"
 	echo "Usage:"
 	echo "    --git: to auto commit"
