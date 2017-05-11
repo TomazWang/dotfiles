@@ -138,8 +138,15 @@ export TERM=screen-256color
 
 
 # ============ Shell dotfiles =================
-for file in $HOME/.shell/.{shell_exports,shell_alias,shell_functions,shell_config}; do
+for file in $HOME/.shell/{shell_exports,shell_alias,shell_functions,shell_config}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+    # echo "[OK]... source $file"
+done
+unset file;
+
+for file in "$HOME/.functions"/*; do
+    [ -r "$file" ] && [ -f "$file" ] && source "$file";
+    # echo "[OK]... source $file"
 done
 unset file;
 

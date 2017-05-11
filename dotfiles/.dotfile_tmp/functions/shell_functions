@@ -11,15 +11,16 @@ function all() {
 
     while [ "$1" != "" ];do
         case $1 in
-            -a | --all )    shift
-                            ll -a "$@" | awk '
+            -a | --all )    ll -a "$@" | awk '
                                 {
                                     if($9 != "" && $9 != "." && $9 != "..")
                                         printf("%5s %4s %6s %6s | %s\n", $6, $7, $8, $5, $9)
                                 }'
                             return
                             ;;
+            * )             ;; 
         esac
+        shift
     done
 
    ll "$@" | awk '

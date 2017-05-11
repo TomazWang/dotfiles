@@ -12,13 +12,13 @@ function illegal_argument_err(){
 
 
 function prepare_dirs(){
-	declare -a dirs_needed=(
+    declare -a dirs_needed=(
 		"$tmp_path"
 		"$tmp_path/shell"
 		"$tmp_path/vim"
 		"$tmp_path/iterm"
 		"$tmp_path/git"
-        "$tmp_path/function"
+        "$tmp_path/functions"
         "$tmp_path/system"
 		)
 
@@ -40,7 +40,7 @@ function cp_all_dotfiles(){
 
 	# Shell files 
 	cp $HOME/.zshrc $tmp_path/shell/zshrc
-	echo "[OK]... zshrc"
+	echo "[OK]... zshrc copied"
 
 	declare -a shell_sup_files=(
 			"shell_exports"
@@ -49,25 +49,27 @@ function cp_all_dotfiles(){
 		)
 
 	for f in "${shell_sup_files[@]}"; do
-		if [ -f "$HOME/.shell/.${f}" ]; then 
-			cp "$HOME/.shell/.${f}" $tmp_path/shell/$f
-			echo "[OK]... ${f}"
+		if [ -f "$HOME/.shell/${f}" ]; then 
+			cp "$HOME/.shell/${f}" $tmp_path/shell/$f
+			echo "[OK]... ${f} copied"
+		else
+			echo "[SKIP]... ${f} not exist"
 		fi
 	done
 
 	unset shell_sup_files
 
     # function files
-    if [ -d "$HOME/.fucntion" ]; then
-        cp -R "$HOME/.function/." "$tmp_path/function/"
-        echo "[OK]... all files in .function"
+    if is_dir $HOME/.functions ; then
+        cp -R "$HOME/.functions/." "$tmp_path/functions/"
+        echo "[OK]... all files in .functions"
     else
-        echo "[SKIP]... .function/ not exist."
+        echo "[SKIP]... .functions/ not exist."
     fi
 
 
     # system config
-	if [ -d "$HOME/.sys" ]; then
+	if is_dir $HOME/.sys ; then
         cp -R "$HOME/.sys/." "$tmp_path/system/"
         echo "[OK]... all files in .sys"
     else
@@ -77,7 +79,7 @@ function cp_all_dotfiles(){
 
 	# Vim files
     cp "$HOME/.vimrc" "$tmp_path/vim/vimrc"
-    echo "[OK]... vimrc"
+    echo "[OK]... vimrc copied"
 
 
     # TODO: git
@@ -88,8 +90,9 @@ function cp_all_dotfiles(){
 function cp_to_repo(){
 
     if [ -d "$tmp_path" ]; then
-        mv -f "$tmp_path" "$dotfile_path/dotfiles"
-        echo "Move all files to $dotfile_path"
+		rm -rf -v $dotfile_path/dotfiles_old
+		mv -v $tmp_path $dotfile_path/dotfiles
+        echo "Move all files to $dotfile_path/dotfiles"
     fi
 }
 
@@ -133,7 +136,7 @@ function main(){
 
     # declare a tmp folder
     tmp_path="$HOME/.dotfile_tmp"
-    
+
     # Remember the dotfile folder path.
     dotfile_path=$(pwd)
     echo ""
@@ -161,6 +164,9 @@ function main(){
 	if $is_auto_git ; then
 		do_auto_git
 	fi
+
+	echo ">>> Backup complete!!"
+	tree $dotfile_path/dotfiles
 }
 
 
