@@ -9,26 +9,40 @@ function all() {
     # $8 time
     # $5 size
 
+    arg=""
     while [ "$1" != "" ];do
         case $1 in
-            -a | --all )    ll -a "$@" | awk '
-                                {
-                                    if($9 != "" && $9 != "." && $9 != "..")
-                                        printf("%5s %4s %6s %6s | %s\n", $6, $7, $8, $5, $9)
-                                }'
-                            return
-                            ;;
-            * )             ;; 
+            -a | --all )
+                arg="-a"
+                ;;
+            * ) 
+                ;; 
         esac
         shift
     done
 
-   ll "$@" | awk '
+   ll $arg "$@" | awk '
         {
-            if($9 != "" && $9 != "." && $9 != "..")
-                printf("%4s %4s %6s %6s | %s\n", $6, $7, $8, $5, $9)
+            if($9 != "" && $9 != "." && $9 != ".."){
+                MM=$6;
+                dd=$7;
+                tt=$8;
+                size=$5;
+
+                $1=$2=$3=$4=$5=$6=$7=$8=""
+
+                rest=substr($0,9)
+
+                split(rest,name,"->")
+
+                printf("%4s %4s %6s %6s | %s\n", MM, dd, tt, size, name[1])
+            }
         }'
-    }
+
+}
+
+
+    
 
 
 
@@ -44,8 +58,8 @@ function localip(){
 }
 
 function ip(){
-    myip
     localip
+    myip
 }
 
 # cd into whatever is the forefront Finder window.
@@ -53,3 +67,32 @@ function cdf(){
     cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
 }
 alias gotoFinder=cdf
+
+
+
+
+# edit a function
+function vimf(){
+    filename=''
+    case $1 in
+        d|dev ) 
+            filename='dev_functions'
+            ;;
+        s|shell)
+            filename='shell_functions'
+            ;;
+        o|other)
+            filename='other_functions'
+            ;;
+        *)
+            filename=$1'_functions'
+            ;;
+    esac
+    
+    file=$HOME/.functions/$filename
+    if [ ! -e $file ]; then
+        echo '#!/bin/bash' >> $file
+    fi
+    vim $HOME/.functions/$filename
+}
+

@@ -30,11 +30,9 @@ source $ZPLUG_HOME/init.zsh
 source ~/.zshsup/z.sh
 
 
-
 # zsh-interactive-cd is a plugin for to use fzf with cd in zsh
 # source zsh-interactive-cd
 . ~/.zshsup/zsh-interactive-cd.zsh
-
 
 
 # =========== Prepend PATH ==============
@@ -42,21 +40,26 @@ source ~/.zshsup/z.sh
 #
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 
 declare -a dirs_to_prepend
 dirs_to_prepend=(
-	"$HOME/Library/Android/sdk/platform-tools/"		# adb path
+    "$HOME/Library/Android/sdk/platform-tools/"    # adb path
+    "$HOME/.zplug/bin"
 )
 
 for dir in ${(k)dirs_to_prepend[@]}
 do
-	if [ -d ${dir} ]; then
-		# If direrctory exits, then prepend it to existing PATH
-		PATH="${dir}:$PATH"
-	fi
+    if [ -d ${dir} ]; then
+        # If direrctory exits, then prepend it to existing PATH
+        PATH="${dir}:$PATH"
+    fi
 done
 
 unset dirs_to_prepend
+
+
+
 
 # ============= Look and feel ===============
 #
@@ -74,7 +77,7 @@ ZSH_THEME="refined" # the "pure" theme
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13

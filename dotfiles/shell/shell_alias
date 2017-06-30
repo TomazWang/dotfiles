@@ -1,9 +1,5 @@
 # ============ Aliases =====================
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
+    
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -21,7 +17,8 @@ alias o='open'
 alias oo='open .'
 alias v='vim'
 alias x+='chmod +x'
-alias py='python 3'
+alias py='python3'
+alias pip='pip3'
 
 # mv, rm, cp, ...
 alias mv='mv -v'
@@ -34,17 +31,32 @@ alias vimz='vim $HOME/.zshrc'
 alias vimzl='vim $HOME/.zsh.local'
 alias vimh='vim $HOME/.hyper.js'
 alias vimt='vim $HOME/.tmux.conf'
-alias vima='vim $HOME/.shell/.shell_alias'
+alias vima='vim $HOME/.shell/shell_alias'
 alias vimv='vim $HOME/.vimrc'
-
-
+alias vimfd='vim $HOME/.functions/dev_finctions'
+alias vimfo='vim $HOME/.functions/other_functions'
+alias vimfs='vim $HOME/.functions/shell_functions'
 
 # For adb
 alias adbc='adb connect'
 alias adbd='adb devices'
+alias devices='adb devices'
+alias acon='adb connect'
+alias connect='adb connect'
+alias discon='adb disconnect'
 
+
+# For git
+alias 'git l'='git log --oneline --decorate --graph --color'
 
 # Work faster
-alias tapk='cd $HOME/Dev/turncloud-android/app/build/outputs/apk
-'
-alias taok='tapk' # typo
+alias parse_chr='py $HOME/Dev/Py/charles-session-parse/parser.py'
+
+
+alias tapk='cd $HOME/WishWork/turncloud-android/app/build/outputs/apk'
+alias tsup='cd $HOME/WishWork/turnstore_support'
+alias fapk='cd $HOME/WishWork/farglory-android/app/build/outputs/apk'
+
+alias tapk_skm='cd $HOME/WishWork/turncloud-skm-china/app/build/outputs/apk'
+alias skm_sup='cd $HOME/WishWork/turnstore_skm_support'
+alias skm_apk='tapk_skm'

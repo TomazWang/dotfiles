@@ -12,6 +12,7 @@ function illegal_argument_err(){
 
 
 function prepare_dirs(){
+
     declare -a dirs_needed=(
 		"$tmp_path"
 		"$tmp_path/shell"
@@ -33,7 +34,7 @@ function prepare_dirs(){
 }
 
 function cp_all_dotfiles(){
-	
+
 	# prepare all dirs needed
 	prepare_dirs
 
@@ -90,6 +91,7 @@ function cp_all_dotfiles(){
 function cp_to_repo(){
 
     if [ -d "$tmp_path" ]; then
+        mv -v $dotfile_path/dotfiles $dotfile_path/dotfiles_old
 		rm -rf -v $dotfile_path/dotfiles_old
 		mv -v $tmp_path $dotfile_path/dotfiles
         echo "Move all files to $dotfile_path/dotfiles"
@@ -171,3 +173,4 @@ function main(){
 
 
 main "$@"
+    
